@@ -1,5 +1,6 @@
 package com.fastcampus.jpa.bookmanager.controller;
 
+import com.fastcampus.jpa.bookmanager.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,6 +23,7 @@ class HelloWorldControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("helloWorld"));
+
     }
 
 }
