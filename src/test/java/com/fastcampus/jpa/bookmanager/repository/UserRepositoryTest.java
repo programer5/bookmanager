@@ -22,13 +22,11 @@ class UserRepositoryTest {
 
     @Test
     void crud() {
-        User user = new User();
-        user.setEmail("slow");
+        userRepository.save(new User("david", "david@naver.com"));
+
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setEmail("divid@gmail.com");
 
         userRepository.save(user);
-
-        ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("email", contains());
-        Example<User> example = Example.of(user, matcher);
-        userRepository.findAll(example).forEach(System.out::println);
     }
 }
