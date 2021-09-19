@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.EndsWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 
 import java.time.LocalDateTime;
 
@@ -66,4 +63,14 @@ class UserRepositoryTest {
         System.out.println("findByNameLike = " + userRepository.findByNameLike("%dav%"));
 
     }
+
+    @Test
+    void pagingAndSortingTest() {
+        userRepository.save(new User(1L,"david", "david@naver.com", LocalDateTime.now(), LocalDateTime.now()));
+        System.out.println("findTop1ByName = " + userRepository.findTop1ByName("david"));
+        System.out.println("findTop1ByNameOrderByIdDesc = " + userRepository.findTop1ByNameOrderByIdDesc("david"));
+        System.out.println("findFirstByNameOrderByIdDescEmailAsc = " + userRepository.findFirstByNameOrderByIdDescEmailAsc("david"));
+        System.out.println("findFirstByName = " + userRepository.findFirstByName("david", Sort.by(Sort.Order.desc("id"))));
+    }
+
 }
