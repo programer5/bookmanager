@@ -11,6 +11,10 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByName(String name);
 
+    List<User> findUserByNameIs(String name);
+    List<User> findUserByName(String name);
+    List<User> findUserByNameEquals(String name);
+
     User findByEmail(String email);
 
     User getByEmail(String email);
@@ -46,5 +50,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByCreateAtBetween(LocalDateTime yesterday, LocalDateTime tomorrow);
 
     List<User> findByIdBetween(Long id1, Long id2);
+
+    List<User> findByIdIsNotNull();
+
+//    List<User> findByaddressesIsNotEmpty();
+
+    List<User> findByNameIn(List<String> names);
+
+    List<User> findByNameStartingWith(String name);
+    List<User> findByNameEndingWith(String name);
+    List<User> findByNameContains(String name);
+
+    List<User> findByNameLike(String name);
+
 
 }
