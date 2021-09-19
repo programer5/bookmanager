@@ -29,4 +29,23 @@ class UserRepositoryTest {
 
         userRepository.save(user);
     }
+
+    @Test
+    void select() {
+        System.out.println(userRepository.findByName("david"));
+
+        userRepository.save(new User("david", "david@naver.com"));
+
+        System.out.println("findByEmail = " + userRepository.findByEmail("david@naver.com"));
+        System.out.println("getByEmail = " + userRepository.getByEmail("david@naver.com"));
+        System.out.println("readByEmail = " + userRepository.readByEmail("david@naver.com"));
+        System.out.println("queryByEmail = " + userRepository.queryByEmail("david@naver.com"));
+        System.out.println("searchByEmail = " + userRepository.searchByEmail("david@naver.com"));
+        System.out.println("streamByEmail = " + userRepository.streamByEmail("david@naver.com"));
+        System.out.println("findUserByEmail = " + userRepository.findUserByEmail("david@naver.com"));
+        System.out.println("findSomethingByEmail = " + userRepository.findSomethingByEmail("david@naver.com"));
+        System.out.println("findFirstByName = " + userRepository.findFirst1ByName("david"));
+        System.out.println("findTop1ByName = " + userRepository.findTop1ByName("david"));
+
+    }
 }
