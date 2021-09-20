@@ -18,12 +18,11 @@ import java.time.LocalDateTime;
 @Entity
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-//@Table(name = "user", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 @EntityListeners(value = {UserEntityListener.class})
-public class User extends BaseEntity implements Auditable {
+public class User extends BaseEntity{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
@@ -46,17 +45,4 @@ public class User extends BaseEntity implements Auditable {
     @Transient
     private String testData;
 
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private List<Address> addresses;
-
-//    @PrePersist
-//    public void prePersist() {
-//        this.createAt = LocalDateTime.now();
-//        this.updateAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    public void preUpdate() {
-//        this.updateAt = LocalDateTime.now();
-//    }
 }

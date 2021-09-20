@@ -7,6 +7,5 @@ public interface Auditable {
     LocalDateTime getUpdateAt();
 
     void setCreateAt(LocalDateTime createAt);
-
     void setUpdateAt(LocalDateTime updateAt);
 }
