@@ -9,6 +9,7 @@ import org.mockito.internal.matchers.EndsWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -139,7 +140,7 @@ class UserRepositoryTest {
 
         userRepository.save(user);
 
-//        userHistoryRepository.findAll().forEach(System.out::println);
+        userHistoryRepository.findAll().forEach(System.out::println);
 
 //        List<UserHistory> result = userHistoryRepository
 //                .findByUserId(userRepository.findByEmail("daniel@gmail.com").getId());
@@ -147,7 +148,7 @@ class UserRepositoryTest {
         List<UserHistory> result = userRepository.findByEmail("daniel@gmail.com").getUserHistories();
 
         result.forEach(System.out::println);
+
+        System.out.println("UserHistory.getUser() " + userHistoryRepository.findAll().get(0).getUser());
     }
-
-
 }
