@@ -19,6 +19,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
 @SpringBootTest
+@Transactional
 class UserRepositoryTest {
 
     @Autowired
@@ -29,9 +30,9 @@ class UserRepositoryTest {
 
     @Test
     void crud() {
-        userRepository.save(new User("david", "david@naver.com"));
+        User david = userRepository.save(new User("david", "david@naver.com"));
 
-        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        User user = userRepository.findById(david.getId()).orElseThrow(RuntimeException::new);
         user.setEmail("divid@gmail.com");
 
         userRepository.save(user);
@@ -88,9 +89,9 @@ class UserRepositoryTest {
         user.setName("martin");
         user.setEmail("martin@naver.com");
 
-        userRepository.save(user);
+        User save = userRepository.save(user);
 
-        User user1 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        User user1 = userRepository.findById(save.getId()).orElseThrow(RuntimeException::new);
         user1.setName("marrrrrrtin");
 
         userRepository.save(user1);
