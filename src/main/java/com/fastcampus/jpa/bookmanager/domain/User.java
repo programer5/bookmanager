@@ -9,6 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,15 +36,8 @@ public class User extends BaseEntity{
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-    @Column(updatable = false)
-    @CreatedDate
-    private LocalDateTime createAt;
-
-    @Column
-    @LastModifiedDate
-    private LocalDateTime updateAt;
-
-    @Transient
-    private String testData;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private List<UserHistory> userHistories = new ArrayList<>();
 
 }
