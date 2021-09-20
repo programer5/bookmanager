@@ -1,5 +1,6 @@
 package com.fastcampus.jpa.bookmanager.repository;
 
+import com.fastcampus.jpa.bookmanager.domain.Gender;
 import com.fastcampus.jpa.bookmanager.domain.User;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ class UserRepositoryTest {
     void select() {
         System.out.println(userRepository.findByName("david"));
 
-        userRepository.save(new User(1L,"david", "david@naver.com", LocalDateTime.now(), LocalDateTime.now()));
+//        userRepository.save(new User(1L,"david", "david@naver.com", LocalDateTime.now(), LocalDateTime.now()));
 
 //        System.out.println("findByEmail = " + userRepository.findByEmail("david@naver.com"));
 //        System.out.println("getByEmail = " + userRepository.getByEmail("david@naver.com"));
@@ -66,7 +67,7 @@ class UserRepositoryTest {
 
     @Test
     void pagingAndSortingTest() {
-        userRepository.save(new User(1L,"david", "david@naver.com", LocalDateTime.now(), LocalDateTime.now()));
+//        userRepository.save(new User(1L,"david", "david@naver.com", LocalDateTime.now(), LocalDateTime.now()));
         System.out.println("findTop1ByName = " + userRepository.findTop1ByName("david"));
         System.out.println("findTop1ByNameOrderByIdDesc = " + userRepository.findTop1ByNameOrderByIdDesc("david"));
         System.out.println("findFirstByNameOrderByIdDescEmailAsc = " + userRepository.findFirstByNameOrderByIdDescEmailAsc("david"));
@@ -75,4 +76,29 @@ class UserRepositoryTest {
                 PageRequest.of(1, 1, Sort.by(Sort.Order.desc("Id")))).getContent());
     }
 
+    @Test
+    void insertAndUpdateTest() {
+        User user = new User();
+        user.setName("martin");
+        user.setEmail("martin@naver.com");
+
+        userRepository.save(user);
+
+        User user1 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user1.setName("marrrrrrtin");
+
+        userRepository.save(user1);
+    }
+
+    @Test
+    void enumTest() {
+        User user = new User();
+        user.setGender(Gender.MALE);
+
+        userRepository.save(user);
+
+        userRepository.findAll().forEach(System.out::println);
+
+        System.out.println(userRepository.findRawRecord().get("gender"));
+    }
 }
