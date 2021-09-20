@@ -21,6 +21,9 @@ class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserHistoryRepository userHistoryRepository;
+
     @Test
     void crud() {
         userRepository.save(new User("david", "david@naver.com"));
@@ -101,4 +104,20 @@ class UserRepositoryTest {
 
         System.out.println(userRepository.findRawRecord().get("gender"));
     }
+
+    @Test
+    void userHistoryTest() {
+        User user = new User();
+        user.setEmail("martin@naver.com");
+        user.setName("martin");
+
+        userRepository.save(user);
+
+        user.setName("david");
+
+        userRepository.save(user);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+    }
+
 }
