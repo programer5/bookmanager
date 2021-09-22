@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -66,6 +68,36 @@ class BookRepositoryTest {
         bookRepository.save(book1);
 
         System.out.println("publisher = " + publisherRepository.findAll());
+
+        Book book2 = bookRepository.findById(1L).get();
+
+//        publisherRepository.delete(book2.getPublisher());
+        Book book3 = bookRepository.findById(1L).get();
+        book3.setPublisher(null);
+
+        bookRepository.save(book3);
+
+        System.out.println("books = " + bookRepository.findAll());
+        System.out.println("publishers = " + publisherRepository.findAll());
+        System.out.println("book3-publisher = " + bookRepository.findById(1L).get().getPublisher());
+    }
+
+    @Test
+    void queryTest() {
+        System.out.println(" >>>> " +
+                bookRepository.findByCategoryIsNullAndNameEqualsAndCreateAtGreaterThanEqualAndUpdateAtGreaterThanEqual(
+                        "JPA", LocalDateTime.now().minusDays(1L),
+                        LocalDateTime.now().minusDays(1L)
+                ));
+
+        System.out.println("findByNameRecently = "
+                + bookRepository.findByNameRecently(
+                        "JPA",
+                LocalDateTime.now().minusDays(1L),
+                LocalDateTime.now().minusDays(1L)));
+
+        System.out.println(bookRepository.findBookNameAndCategory());
+
     }
 
     private void givenBookAndReview() {

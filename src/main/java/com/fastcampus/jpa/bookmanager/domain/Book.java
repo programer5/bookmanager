@@ -40,7 +40,7 @@ public class Book extends BaseEntity {
     @ToString.Exclude
     private List<Review> reviews = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @ToString.Exclude
     private Publisher publisher;
 
@@ -48,6 +48,8 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "book_id")
     @ToString.Exclude
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
+
+    private boolean deleted;
 
     public void addBookAndAuthors(BookAndAuthor... bookAndAuthors) {
         Collections.addAll(this.bookAndAuthors, bookAndAuthors);
