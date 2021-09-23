@@ -17,3 +17,4 @@ spring:
       password: a1s2d3A!S@
 server:
   port: 8070
+

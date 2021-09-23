@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
@@ -188,5 +189,10 @@ class UserRepositoryTest {
         userHistoryRepository.findAll().forEach(System.out::println);
 
         userRepository.findAllRawRecord().forEach(a -> System.out.println(a.values()));
+
+        assertAll(
+                () -> assertThat(userRepository.findById(2L).get().getHomeAddress()).isNull(),
+                () -> assertThat(userRepository.findById(1L).get().getHomeAddress()).isInstanceOf(Address.class)
+        );
     }
 }

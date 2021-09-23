@@ -1,8 +1,11 @@
 package com.fastcampus.jpa.bookmanager.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -10,6 +13,8 @@ import javax.persistence.*;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@DynamicInsert
+@DynamicUpdate
 public class Comment extends BaseEntity {
 
     @Id
@@ -21,4 +26,7 @@ public class Comment extends BaseEntity {
     @ManyToOne
     @ToString.Exclude
     private Review review;
+
+    @Column(columnDefinition = "datetime")
+    private LocalDateTime commentedAt;
 }
